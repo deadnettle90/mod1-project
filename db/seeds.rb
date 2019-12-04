@@ -1,3 +1,7 @@
+UserBrewery.destroy_all
+Brewery.destroy_all
+User.destroy_all
+
 user1 = User.create(name: "Lilly")
 user2 = User.create(name: "Ted")
 user3 = User.create(name: "Lyle")

@@ -38,3 +38,15 @@ Would like to location based suggestions across all - location class
 
 Portraying a map/figure of denver divided by neighborhood/4 quadrants? and using to locate the destination
 
+To do
+
+user login
+write a review
+read/update/delete reviews
+
+
+two options from the start..
+Do you have a brewery in mind? we want this as a lickable link
+Do you want us to suggest a brewery? 1. happy hour? 2. location? 3. food? 4. rating?
+
+
