@@ -15,3 +15,30 @@ brewery4 = Brewery.create(name: "Keggers", location: "LoDo", happy_hour: "1-4", 
 brewery5 = Brewery.create(name: "Max's", location: "5 Points", happy_hour: "no", food: "yes", hours: "12-8", rating: 8, review: " ")
 
 UserBrewery.create()
+
+def brewery_list
+    page_numbers= (1..9).to_a
+    page_numbers.map do |page_number|
+        response = RestClient.get("https://api.openbrewerydb.org/breweries?page=#{page_number}&per_page=1")
+        result = JSON.parse(response)
+        # binding.pry
+        result
+    end
+end
+brewery_list
+
+# brewery hash
+# "id": 1625,
+# "name": "Wild Woods Brewery",
+# "brewery_type": "micro",
+# "street": "5460 Conestoga Ct",
+# "city": "Boulder",
+# "state": "Colorado",
+# "postal_code": "80301-2724",
+# "country": "United States",
+# "longitude": "-105.2258104",
+# "latitude": "40.0162153",
+# "phone": "3034841465",
+# "website_url": "http://www.wildwoodsbrewery.com",
+# "updated_at": "2018-08-24T00:25:13.496Z",
+# "tag_list": []
