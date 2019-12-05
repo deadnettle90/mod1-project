@@ -15,11 +15,6 @@ ActiveRecord::Schema.define(version: 2019_12_03_225350) do
   create_table "breweries", force: :cascade do |t|
     t.string "name"
     t.string "location"
-    t.string "happy_hour"
-    t.string "food"
-    t.string "hours"
-    t.float "rating"
-    t.text "review"
   end
 
   create_table "user_breweries", force: :cascade do |t|

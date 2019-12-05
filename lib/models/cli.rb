@@ -1,41 +1,40 @@
 class Cli
 
+@cities = ["Boulder", "Breckenridge", "Colorado Springs", "Denver", "Durango", "Fort Collins", "Steamboat Springs", "Telluride", "Nah, let's try something else"]
+@types = ["Brewpub", "Micro", "Planning", "Regional", "Nope, not this either"]
+
 def self.welcome
     puts "Hey hey! What can we call you by?"
-    @user_name = gets.chomp
-    puts "Welcome, #{@user_name}, to our Denver Brewery Guide!"
+    user_input = gets.chomp
+    puts "Hi #{user_input}. Welcome to our Colorado Brewery Guide!"
+    @user = User.create(name: user_input)
 end
 
-# def breweries
-#     UserBrewery.all.select do |brewery|
-#         brewery.
-#     end
-# end
+def self.menu    
+    prompt = TTY::Prompt.new
+    choice = prompt.select("How would you like to find a brewery?", ["City", "Brewery Type", "I have a brewery in mind"])
+    
+end
 
 def self.user_options
     prompt = TTY::Prompt.new
-    choice = prompt.select("How would you like us to recommend a brewery for you?", ["Happy Hour", "Location", "Food", "Customer Rating", "No, I have something in mind."])
-    if choice == "Happy Hour"
-
-    elsif choice == "Location"
-        choice = prompt.select("Choose from the following neighborhoods:", [""])
-    elsif choice == "Food"
-        list = breweries.select(:food == true)
-        puts list
-        #puts a numbered list of options
-    elsif choice == "Customer Rating"
-        #prompt.slider('Rating', max: 10, step: 1, default: 7)
-    elsif choice == "No, I have something in mind."
-        prompt.ask("")
+    prompt.ask("We've got a long list of breweries for you, take a look at our options below!")
+    choice = prompt.select("How would you like to find one by?", ["City", "Brewery Type", "I have a brewery in mind"])
+        if choice == "City"
+        choice1 = prompt.select("City", [@cities])
+            if choice1 == "Nah, let's try something else"
+            menu
+            elsif choice == "Brewery Type"
+            choice2 = prompt.select("Brewery Type", [@types])
+        elsif choice == "I have a brewery in mind"
+        choice3 = prompt.ask("What's the name?")
+            if choice3 == brewery["name"]
+            puts "Ok, #{brewery[:name]} is at #{brewery[:street]} in #{brewery[:city]}. Enjoy!"
+            else
+            puts "We can't find a brewery based on your entry, try finding it by city.."
+            end
+        end
     end
 end
 
-def self.start_menu
-    puts "Choose something you would like to do with your time in Denver"
 end
-
-end
-
-
-# prompt.multi_select
-# prompt.yes?
