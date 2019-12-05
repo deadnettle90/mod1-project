@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_03_225350) do
+ActiveRecord::Schema.define(version: 2019_12_05_212859) do
 
   create_table "breweries", force: :cascade do |t|
     t.string "name"
     t.string "location"
+    t.string "brewery_type"
   end
 
   create_table "user_breweries", force: :cascade do |t|
@@ -26,6 +27,7 @@ ActiveRecord::Schema.define(version: 2019_12_03_225350) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
+    t.string "preferred_city"
   end
 
   add_foreign_key "user_breweries", "breweries"
