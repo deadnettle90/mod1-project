@@ -1,12 +1,11 @@
 require_relative 'config/environment'
+ActiveRecord::Base.logger = nil
 
-Cli.welcome
-Cli.user_options
-
-
-
-
+cli = Cli.new
+cli.welcome
+cli.store_city
 
 
-binding.pry
-0
+
+# binding.pry
+# 0

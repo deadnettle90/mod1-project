@@ -1,40 +1,51 @@
 class Cli
 
-@cities = ["Boulder", "Breckenridge", "Colorado Springs", "Denver", "Durango", "Fort Collins", "Steamboat Springs", "Telluride", "Nah, let's try something else"]
-@types = ["Brewpub", "Micro", "Planning", "Regional", "Nope, not this either"]
+attr_reader :user
 
-def self.welcome
-    puts "Hey hey! What can we call you by?"
-    user_input = gets.chomp
-    puts "Hi #{user_input}. Welcome to our Colorado Brewery Guide!"
-    @user = User.create(name: user_input)
-end
+    def welcome
+        puts "Hey hey! What can we call you by?"
+        user_input = gets.chomp
+        puts "Hi #{user_input}. Welcome to our Colorado Brewery Guide!"
+        @user = User.create(name: user_input)
+    end
 
-def self.menu    
-    prompt = TTY::Prompt.new
-    choice = prompt.select("How would you like to find a brewery?", ["City", "Brewery Type", "I have a brewery in mind"])
-    
-end
-
-def self.user_options
-    prompt = TTY::Prompt.new
-    prompt.ask("We've got a long list of breweries for you, take a look at our options below!")
-    choice = prompt.select("How would you like to find one by?", ["City", "Brewery Type", "I have a brewery in mind"])
-        if choice == "City"
-        choice1 = prompt.select("City", [@cities])
-            if choice1 == "Nah, let's try something else"
-            menu
-            elsif choice == "Brewery Type"
-            choice2 = prompt.select("Brewery Type", [@types])
-        elsif choice == "I have a brewery in mind"
-        choice3 = prompt.ask("What's the name?")
-            if choice3 == brewery["name"]
-            puts "Ok, #{brewery[:name]} is at #{brewery[:street]} in #{brewery[:city]}. Enjoy!"
-            else
-            puts "We can't find a brewery based on your entry, try finding it by city.."
-            end
+    def brewery_by_city(arg)
+        Brewery.all.select do |brewery|
+            brewery[:location] == arg
         end
     end
-end
+
+    def store_city
+        prompt = TTY::Prompt.new
+        selection = prompt.select("Start by selecting a city to your profile", ["Boulder", "Breckenridge", "Colorado Springs", "Denver", "Durango", "Fort Collins", "Steamboat Springs", "Telluride", "I don't see the city I'm looking for"])
+        if brewery_by_city(selection)
+            @user[:preferred_city] = selection
+            puts "Great, we have found some breweries in #{selection}."          
+        elsif selection == "I don't see the city I'm looking for"
+        prompt.ask("Type in your city")
+        city_entry = gets.chomp.capitalize
+            if brewery_by_city(city_entry)
+                @user[:preferred_city] = city_entry
+            else
+                puts "Sorry, we don't have any breweries in the city you selected.."
+                select_city
+            end
+        end
+        select_type
+    end 
+     
+    def brewery_by_type(city_choice, brewery_type_choice)
+        brewery_by_city(city_choice).select do |brewery| 
+            brewery[:brewery_type] == brewery_type_choice    
+        end
+    end    
+
+    def select_type
+        prompt = TTY::Prompt.new
+        type_selected = prompt.select("What type of brewery are you looking for?", ["Brewpub", "Micro", "Planning", "Regional"]) 
+        
+        list = brewery_by_type(@user[:preferred_city], type_selected.downcase)
+        puts "Here is our recommendation: #{list}"
+    end
 
 end
