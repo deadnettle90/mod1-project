@@ -12,25 +12,26 @@ brewery1 = Brewery.create(name: "Bottles n Brews", location: "Denver", brewery_t
 brewery2 = Brewery.create(name: "Chicks Who Brew", location: "Denver", brewery_type: "micro")
 brewery3 = Brewery.create(name: "Dog Lovers", location: "Telluride", brewery_type: "regional")
 brewery4 = Brewery.create(name: "Keggers", location: "Denver", brewery_type: "brewpub")
-brewery5 = Brewery.create(name: "Max's", location: "Denver", brewery_type: "micro")
-brewery5 = Brewery.create(name: "Mx's", location: "Denver", brewery_type: "micro")
-brewery5 = Brewery.create(name: "Tax's", location: "Denver", brewery_type: "micro")
-brewery5 = Brewery.create(name: "Lax's", location: "Denver", brewery_type: "micro")
-brewery5 = Brewery.create(name: "Fax's", location: "Denver", brewery_type: "micro")
+# brewery5 = Brewery.create(name: "Max's", location: "Denver", brewery_type: "micro")
+# brewery5 = Brewery.create(name: "Mx's", location: "Denver", brewery_type: "micro")
+# brewery5 = Brewery.create(name: "Tax's", location: "Denver", brewery_type: "micro")
+# brewery5 = Brewery.create(name: "Lax's", location: "Denver", brewery_type: "micro")
+# brewery5 = Brewery.create(name: "Fax's", location: "Denver", brewery_type: "micro")
+
+def brewery_list
+    page_numbers = (1..9).to_a
+    page_numbers.map do |page_number|
+        response = RestClient.get("https://api.openbrewerydb.org/breweries?by_state=colorado&page=#{page_number}&per_page=50")
+        result = JSON.parse(response)
+
+        result.map do |brewery_object|
+            Brewery.create(name: brewery_object["name"], location: brewery_object["city"], brewery_type: brewery_object["brewery_type"])
+        end
+    end
+end
+brewery_list
 
 fav1 = UserBrewery.create(brewery: brewery2, user: user1)
-
-
-# def brewery_list
-#     page_numbers= (1..9).to_a
-#     page_numbers.map do |page_number|
-#         response = RestClient.get("https://api.openbrewerydb.org/breweries?page=#{page_number}&per_page=1")
-#         result = JSON.parse(response)
-#         # binding.pry
-#         result
-#     end
-# end
-# brewery_list
 
 # brewery hash
 # "id": 1625,
