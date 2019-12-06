@@ -13,8 +13,13 @@ brewery2 = Brewery.create(name: "Chicks Who Brew", location: "Denver", brewery_t
 brewery3 = Brewery.create(name: "Dog Lovers", location: "Telluride", brewery_type: "regional")
 brewery4 = Brewery.create(name: "Keggers", location: "Denver", brewery_type: "brewpub")
 brewery5 = Brewery.create(name: "Max's", location: "Denver", brewery_type: "micro")
+brewery5 = Brewery.create(name: "Mx's", location: "Denver", brewery_type: "micro")
+brewery5 = Brewery.create(name: "Tax's", location: "Denver", brewery_type: "micro")
+brewery5 = Brewery.create(name: "Lax's", location: "Denver", brewery_type: "micro")
+brewery5 = Brewery.create(name: "Fax's", location: "Denver", brewery_type: "micro")
 
-UserBrewery.create()
+fav1 = UserBrewery.create(brewery: brewery2, user: user1)
+
 
 # def brewery_list
 #     page_numbers= (1..9).to_a

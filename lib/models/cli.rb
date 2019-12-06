@@ -38,14 +38,40 @@ attr_reader :user
         brewery_by_city(city_choice).select do |brewery| 
             brewery[:brewery_type] == brewery_type_choice    
         end
-    end    
+    end  
+    
 
     def select_type
         prompt = TTY::Prompt.new
         type_selected = prompt.select("What type of brewery are you looking for?", ["Brewpub", "Micro", "Planning", "Regional"]) 
         
-        list = brewery_by_type(@user[:preferred_city], type_selected.downcase)
-        puts "Here is our recommendation: #{list}"
+        @list = brewery_by_type(@user[:preferred_city], type_selected.downcase)
+        # puts "Here is our recommendation: #{name_list}"
+        favorites
+    end
+
+    def name_list
+        @list.map do |brewery|
+            brewery.name
+        end
+    end
+
+    def favorites
+        prompt = TTY::Prompt.new
+        @favs = prompt.select("Here are the breweries we found for you, select your favorites", [name_list])
+        # brewery_selector
+        user_choices
+    end
+
+    def brewery_selector(arg)
+        @list.find do |brewery|
+            brewery.name == arg
+        end
+    end
+
+    def user_choices
+        brewery_info = UserBrewery.create(brewery: brewery_selector(@favs), user: @user)
+        puts "Go drink some beer! #{brewery_info.brewery.name} can be found in #{brewery_info.brewery.location}"
     end
 
 end
