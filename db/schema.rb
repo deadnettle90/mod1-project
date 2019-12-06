@@ -10,12 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_05_212859) do
+ActiveRecord::Schema.define(version: 2019_12_06_172346) do
 
   create_table "breweries", force: :cascade do |t|
     t.string "name"
     t.string "location"
     t.string "brewery_type"
+    t.string "street"
+    t.string "phone"
+    t.string "website_url"
   end
 
   create_table "user_breweries", force: :cascade do |t|

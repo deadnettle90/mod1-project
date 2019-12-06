@@ -1,10 +1,10 @@
 # Objectives
 
-Create and store user information.
-Store the users preferred city and favorite brewery.
+Create and store user information:
+    Users preferred city and favorite brewery
 Sort through a list of Colorado Breweries, based on location and type of brewery.
 Be able to update preferred city and favorite brewery.
-
+Provide the breweries address, phone number and website
 
 # Background
 

@@ -8,10 +8,10 @@ user3 = User.create(name: "Lyle")
 user4 = User.create(name: "Kyle")
 user5 = User.create(name: "Daisy")
 
-brewery1 = Brewery.create(name: "Bottles n Brews", location: "Denver", brewery_type: "micro")
-brewery2 = Brewery.create(name: "Chicks Who Brew", location: "Denver", brewery_type: "micro")
-brewery3 = Brewery.create(name: "Dog Lovers", location: "Telluride", brewery_type: "regional")
-brewery4 = Brewery.create(name: "Keggers", location: "Denver", brewery_type: "brewpub")
+# brewery1 = Brewery.create(name: "Bottles n Brews", location: "Denver", brewery_type: "micro")
+# brewery2 = Brewery.create(name: "Chicks Who Brew", location: "Denver", brewery_type: "micro", street: "street", phone: "phone", website_url: "website_url")
+# brewery3 = Brewery.create(name: "Dog Lovers", location: "Telluride", brewery_type: "regional")
+# brewery4 = Brewery.create(name: "Keggers", location: "Denver", brewery_type: "brewpub")
 # brewery5 = Brewery.create(name: "Max's", location: "Denver", brewery_type: "micro")
 # brewery5 = Brewery.create(name: "Mx's", location: "Denver", brewery_type: "micro")
 # brewery5 = Brewery.create(name: "Tax's", location: "Denver", brewery_type: "micro")
@@ -25,13 +25,11 @@ def brewery_list
         result = JSON.parse(response)
 
         result.map do |brewery_object|
-            Brewery.create(name: brewery_object["name"], location: brewery_object["city"], brewery_type: brewery_object["brewery_type"])
+            Brewery.create(name: brewery_object["name"], location: brewery_object["city"], brewery_type: brewery_object["brewery_type"], street: brewery_object["street"], phone: brewery_object["phone"], website_url: brewery_object["website_url"])
         end
     end
 end
 brewery_list
-
-fav1 = UserBrewery.create(brewery: brewery2, user: user1)
 
 # brewery hash
 # "id": 1625,
